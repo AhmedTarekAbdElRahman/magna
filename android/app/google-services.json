@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "550861788472",
+    "project_id": "graduation-bcd1c",
+    "storage_bucket": "graduation-bcd1c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:550861788472:android:81cbfcdff6af0b0c3a5dcd",
+        "android_client_info": {
+          "package_name": "com.example.magna"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "550861788472-63kbis7rq17msflohovf5jgfh19iv800.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.magna",
+            "certificate_hash": "aa5d4263ce286a2682ca9343bae5477688f75654"
+          }
+        },
+        {
+          "client_id": "550861788472-gdps7rvb7tqdms258m51184di9cbghe0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEP0Md5nWAe5vQCqGWW23XwHOMP-6BFcM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "550861788472-gdps7rvb7tqdms258m51184di9cbghe0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

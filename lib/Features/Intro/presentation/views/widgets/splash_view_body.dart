@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magna/Features/Intro/presentation/views/widgets/sliding_text.dart';
 import '../../../../../Core/utils/app_routers.dart';
 import '../../../../../Core/utils/shared_preferences.dart';
-
+import '../../../../../constant.dart';
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({Key? key}) : super(key: key);
 
@@ -22,12 +22,16 @@ class _SplashViewBodyState extends State<SplashViewBody>
     super.initState();
     initSlidingAnimation();
     navigateToHome();
+    // FirebaseAuth.instance.authStateChanges().listen((event) {
+    //
+    // });
   }
 
   @override
   void dispose() {
     super.dispose();
     animationController.dispose();
+    instance.cancel();
   }
 
   @override
@@ -57,24 +61,25 @@ class _SplashViewBodyState extends State<SplashViewBody>
             .animate(animationController);
     animationController.forward();
   }
-  bool? onBoarding=CacheHelper.getData(key: 'onBoarding');
+
+  bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
+  final instance =
+      FirebaseAuth.instance.authStateChanges().listen((User? user) {
+    if (user == null) {
+      print('user SignOut');
+      route=Routes.kLoginView;
+    } else {
+      print('user SignIn');
+      route=Routes.kHomeView;
+    }
+  });
 
   void navigateToHome() {
     Future.delayed(const Duration(seconds: 2), () {
-      if(onBoarding!=null){
-        FirebaseAuth.instance.authStateChanges().listen((User? user) {
-          if (user == null) {
-            print('user SignOut');
-            Navigator.of(context).pushReplacementNamed(Routes.kLoginView);
-          }
-          else {
-            print('user SignIn');
-            Navigator.of(context).pushReplacementNamed(Routes.kHomeView);
-          }
-        });
-
-      }else {
-        Navigator.of(context).pushReplacementNamed(Routes.kOnboardingView);
+      if (onBoarding != null) {
+        Navigator.of(context).pushReplacementNamed(route);
+      } else {
+        Navigator.of(context).pushReplacementNamed(route);
       }
     });
   }

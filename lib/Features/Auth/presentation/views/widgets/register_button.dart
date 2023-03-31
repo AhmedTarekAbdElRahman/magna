@@ -29,7 +29,7 @@ class RegisterButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<SignUpCubit,SignUpState>(
       listener: (context, state) {
-        if (state is SignUpSuccess) {
+        if (state is SignUpSuccess && state is PostUserDataSuccess ) {
           Navigator.of(context).pushReplacementNamed(Routes.kHomeView);
           showToast(text: 'Register success', state: ToastStates.success);
         } else if (state is SignUpFailure) {
@@ -38,7 +38,7 @@ class RegisterButton extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        if (state is SignUpLoading) {
+        if (state is SignUpLoading || state is PostUserDataLoading) {
           return const CustomLoadingIndicator();
         } else {
           return CustomButton(

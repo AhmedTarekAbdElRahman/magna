@@ -24,6 +24,10 @@ class ServerFailure extends Failure {
         return ServerFailure('Email address is invalid.');
       case 'weak-password':
         return ServerFailure('The password provided is too weak.');
+      case 'network-request-failed':
+        return ServerFailure('Check your network, please!.');
+      case 'timeout':
+        return ServerFailure('timeout try again, Please!.');
       default:
         return ServerFailure('Something is wrong. Please try again.');
     }

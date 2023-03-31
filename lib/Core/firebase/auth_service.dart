@@ -1,22 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:magna/Features/Auth/data/model/user_model/user_model.dart';
 
 class AuthService {
-  Future<UserCredential> signUp({
-    required String email,
-    required String password,
-  }) async {
+  Future<UserCredential> signUp({required UserModel userModel}) async {
     return await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
+      email: userModel.email!,
+      password: userModel.password!,
     );
   }
 
-  Future<UserCredential> signIn({
-    required String email,
-    required String password,
-  }) async {
-    return await FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: email, password: password);
+  Future<UserCredential> signIn({required UserModel userModel}) async {
+    return await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: userModel.email!,
+      password: userModel.password!,
+    );
   }
 
   Future<void> signOut() async {

@@ -29,9 +29,6 @@ class AddPatientViewBody extends StatelessWidget {
             child: ListView(
               physics: const BouncingScrollPhysics(),
               children: [
-                SizedBox(
-                  height: 20.h,
-                ),
                 Center(
                   child: Stack(
                     alignment: Alignment.bottomRight,

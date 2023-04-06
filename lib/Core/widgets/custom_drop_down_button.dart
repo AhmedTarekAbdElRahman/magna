@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../constant.dart';
+
 class CustomDropDownButton extends StatefulWidget {
   const CustomDropDownButton({Key? key, required this.text, required this.dropdownValue}) : super(key: key);
    final String text;
@@ -13,7 +15,6 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
   late String dropdownValue;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     dropdownValue = widget.dropdownValue.first;
   }
@@ -53,6 +54,8 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
                 onChanged: (String? value) {
                   setState(() {
                     dropdownValue = value!;
+                    userRole=value;
+                    print(userRole);
                   });
                 },
                 borderRadius: BorderRadius.circular(16),

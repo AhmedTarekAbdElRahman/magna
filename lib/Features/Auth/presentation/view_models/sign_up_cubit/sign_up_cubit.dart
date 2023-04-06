@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:magna/Features/Auth/data/model/user_model/user_model.dart';
 import 'package:magna/Features/Auth/presentation/view_models/sign_up_cubit/sign_up_state.dart';
+import '../../../../../Core/model/user_model/user_model.dart';
 import '../../../data/repos/auth_repo.dart';
 
 class SignUpCubit extends Cubit<SignUpState> {
@@ -36,7 +36,6 @@ class SignUpCubit extends Cubit<SignUpState> {
                       name: name,
                       phone: phone,
                       email: email,
-                      password: password,
                       role: role,
                     ),
                   )
@@ -48,7 +47,9 @@ class SignUpCubit extends Cubit<SignUpState> {
                       (r) => PostUserDataSuccess(),
                     ),
                   );
-              emit(SignUpSuccess());
+              emit(
+                SignUpSuccess(user.user!.uid),
+              );
             },
           ),
         );

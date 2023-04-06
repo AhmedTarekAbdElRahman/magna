@@ -1,43 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:magna/Features/Profile/presentation/views/widgets/sign_out_button.dart';
-import '../../../../../Core/utils/app_routers.dart';
-import '../../../../../Core/utils/styles.dart';
-import '../../../../../Core/widgets/custom_floating_action_button.dart';
-import '../../../../../constant.dart';
+import '../../../../../Core/widgets/custom_app_bar.dart';
 
-class ProfileViewBody extends StatelessWidget {
-  const ProfileViewBody({Key? key}) : super(key: key);
+class NursePatientDetailsViewBody extends StatelessWidget {
+  const NursePatientDetailsViewBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          height: 60.h,
-          color: kPrimaryColor,
-          child: Row(
-            children: [
-              IconButton(
-                iconSize: 40,
-                padding: EdgeInsets.zero,
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                icon: const Icon(
-                  Icons.arrow_back_ios_new,
-                  color: Colors.white,
-                ),
-              ),
-              Text(
-                'Profile',
-                style: Styles.appBarStyle,
-              ),
-              const Spacer(),
-              const SignOutButton(),
-            ],
-          ),
+        const CustomAppBar(
+          title: 'PatientDetails',
         ),
         SizedBox(
           height: 20.h,
@@ -45,7 +19,7 @@ class ProfileViewBody extends StatelessWidget {
         const Center(
           child: CircleAvatar(
             backgroundImage: AssetImage(
-              'assets/images/profile.png',
+              'assets/images/patient.jpg',
             ),
             radius: 70,
           ),
@@ -64,9 +38,7 @@ class ProfileViewBody extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(
-                width: 10.w,
-              ),
+              SizedBox(width: 10.w,),
               Text(
                 'Ahmed tarek',
                 style: TextStyle(
@@ -87,9 +59,7 @@ class ProfileViewBody extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(
-                width: 10.w,
-              ),
+              SizedBox(width: 10.w,),
               Text(
                 '01140379370',
                 style: TextStyle(
@@ -104,17 +74,15 @@ class ProfileViewBody extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                'Email:',
+                'Gender:',
                 style: TextStyle(
                   fontSize: 24.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(
-                width: 10.w,
-              ),
+              SizedBox(width: 10.w,),
               Text(
-                'ahmed@gmail.com',
+                'Male',
                 style: TextStyle(
                   fontSize: 20.sp,
                 ),
@@ -127,17 +95,15 @@ class ProfileViewBody extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                'Password:',
+                'Description:',
                 style: TextStyle(
                   fontSize: 24.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(
-                width: 10.w,
-              ),
+              SizedBox(width: 10.w,),
               Text(
-                '123456',
+                't3baan',
                 style: TextStyle(
                   fontSize: 20.sp,
                 ),
@@ -145,20 +111,7 @@ class ProfileViewBody extends StatelessWidget {
             ],
           ),
         ),
-        const Spacer(),
-        Align(
-          alignment: Alignment.bottomRight,
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: CustomFloatingActionButton(
-                icon: Icons.edit,
-                function: () {
-                  Navigator.of(context).pushNamed(Routes.kProfileUpdateView);
-                }),
-          ),
-        ),
       ],
     );
   }
 }
-

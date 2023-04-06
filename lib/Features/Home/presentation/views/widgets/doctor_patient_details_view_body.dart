@@ -4,8 +4,8 @@ import 'package:magna/Core/utils/app_routers.dart';
 import 'package:magna/Core/widgets/custom_floating_action_button.dart';
 import '../../../../../Core/widgets/custom_app_bar.dart';
 
-class PatientDetailsViewBody extends StatelessWidget {
-  const PatientDetailsViewBody({Key? key}) : super(key: key);
+class DoctorPatientDetailsViewBody extends StatelessWidget {
+  const DoctorPatientDetailsViewBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

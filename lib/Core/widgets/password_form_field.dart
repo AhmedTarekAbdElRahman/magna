@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
+import 'custom_form_field.dart';
 
-import '../../../../../Core/widgets/custom_form_field.dart';
-
-class RegisterPasswordFormField extends StatefulWidget {
-  const RegisterPasswordFormField({
+class PasswordFormField extends StatefulWidget {
+  const PasswordFormField({
     Key? key,
     required this.passwordController,
+    required this.formKey,
   }) : super(key: key);
 
   final TextEditingController passwordController;
+  final GlobalKey<FormState> formKey;
 
   @override
-  State<RegisterPasswordFormField> createState() => _RegisterPasswordFormFieldState();
+  State<PasswordFormField> createState() => _PasswordFormFieldState();
 }
 
-class _RegisterPasswordFormFieldState extends State<RegisterPasswordFormField> {
+class _PasswordFormFieldState extends State<PasswordFormField> {
   bool isPassword=true;
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class _RegisterPasswordFormFieldState extends State<RegisterPasswordFormField> {
       label: 'Password',
       prefix: Icons.lock_outline,
       isPassword: isPassword,
-      suffix: isPassword ? Icons.visibility:Icons.visibility_off,
+      suffix: isPassword?Icons.visibility:Icons.visibility_off,
       suffixPress: () {
         setState(() {
           isPassword=!isPassword;

@@ -1,16 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:magna/Features/Auth/data/model/user_model/user_model.dart';
+import '../model/user_model/user_model.dart';
 
-import '../../constant.dart';
+class FireStorageService {
+  final CollectionReference users =
+      FirebaseFirestore.instance.collection('users');
 
-class FireStorageService{
-  //FireStorageService({required this.users});
-  final CollectionReference users=FirebaseFirestore.instance.collection('users') ;
-  Future<void> addUser({required UserModel userModel}) {
+  Future<void> addUser({required UserModel userModel}) async {
     print(userModel.uId);
-    return users.doc(userModel.uId).set(
-       userModel.toMap()
-    );
+    return await users.doc(userModel.uId).set(userModel.toMap());
   }
+
+  Future<DocumentSnapshot> getUser({required String uId}) async {
+    return await users.doc(uId).get();
+  }
+  Future<void> editUser({required UserModel userModel}) async {
+    return await users.doc(userModel.uId).update(userModel.editMap());
+  }
+  // Stream<DocumentSnapshot> getUser() async* {
+  //   yield*  users.doc(uId).snapshots(includeMetadataChanges: true);
+  // }
 
 }

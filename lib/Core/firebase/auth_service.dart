@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:magna/Features/Auth/data/model/user_model/user_model.dart';
+
+import '../model/user_model/user_model.dart';
 
 class AuthService {
   Future<UserCredential> signUp({required UserModel userModel}) async {

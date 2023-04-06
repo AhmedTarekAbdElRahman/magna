@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:magna/Features/Profile/presentation/views/widgets/profile_view_body.dart';
+import '../../../../Core/widgets/custom_app_bar.dart';
+import 'widgets/user_info_section.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SafeArea(
-        child: ProfileViewBody(),
-      ),
+    return  Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const [
+        CustomAppBar(title: 'Profile'),
+        UserInfoSection(),
+      ],
     );
   }
 }
+

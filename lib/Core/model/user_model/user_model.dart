@@ -1,3 +1,5 @@
+import '../../../../../constant.dart';
+
 class UserModel {
   String? uId;
   String? name;
@@ -22,7 +24,6 @@ class UserModel {
     name = json['name'];
     phone = json['phone'];
     email = json['email'];
-    password = json['password'];
     role = json['role'];
     image = json['image'];
   }
@@ -33,9 +34,14 @@ class UserModel {
       'name': name,
       'phone': phone,
       'email': email,
-      'password': password,
       'role': role,
-      'image': image,
+      'image': image??defaultImage,
+    };
+  }
+  Map<String, dynamic> editMap() {
+    return {
+      'name': name,
+      'phone': phone,
     };
   }
 }

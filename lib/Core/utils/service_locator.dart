@@ -16,6 +16,9 @@ void setupServiceLocator() {
       getIt.get<FireStorageService>(),
     ),
   );
-  getIt.registerSingleton<ProfileRepoImp>(
-      ProfileRepoImp(getIt.get<AuthService>()));
+  getIt.registerSingleton<ProfileRepoImp>(ProfileRepoImp(
+    getIt.get<AuthService>(),
+    getIt.get<FireStorageService>(),
+  ));
+
 }

@@ -48,8 +48,10 @@ dependencies:
   bloc:
   fluttertoast:
   get_it:
-  shared_preferences:   
-
+  shared_preferences:
+  cached_network_image:
+  bottom_navy_bar:
+  flutter_offline:
 
 dev_dependencies:
   flutter_test:

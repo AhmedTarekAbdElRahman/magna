@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:magna/Core/widgets/custom_loading_indicator.dart';
 import '../../../../../Core/utils/app_routers.dart';
 import '../../../../../Core/utils/functions/custom_toast.dart';
-import '../../../../../Core/utils/shared_preferences.dart';
+import '../../../../../constant.dart';
 import '../../view_models/sign_out_cubit/sign_out_cubit.dart';
 import '../../view_models/sign_out_cubit/sign_out_state.dart';
+import 'profile_button.dart';
 
 class SignOutButton extends StatelessWidget {
   const SignOutButton({
@@ -25,17 +27,23 @@ class SignOutButton extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is SignOutLoading) {
-          return Container();
+          return const CustomLoadingIndicator();
         } else {
-          return IconButton(
-            onPressed: () {
-              CacheHelper.removeData(key: 'uId').then(
-                    (value) => BlocProvider.of<SignOutCubit>(context).signOut(),
-              );
-            },
-            icon: const Icon(
-              Icons.exit_to_app,
-              color: Colors.white,
+          return Expanded(
+            flex: 3,
+            child: ProfileButton(
+              function: () {
+                userRole='Doctor';
+                BlocProvider.of<SignOutCubit>(context).signOut();
+              },
+              child: Text(
+                'Sign Out',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           );
         }
@@ -43,3 +51,4 @@ class SignOutButton extends StatelessWidget {
     );
   }
 }
+

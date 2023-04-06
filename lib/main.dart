@@ -16,9 +16,18 @@ void main() async {
   await Firebase.initializeApp();
   await CacheHelper.init();
   setupServiceLocator();
-
-// Ideal time to initialize
-  //await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+  FirebaseAuth.instance.authStateChanges().listen((User? user) async {
+    if (user == null) {
+      print('user SignOut');
+      CacheHelper.saveData(key: 'route',value: Routes.kLoginView);
+      route = CacheHelper.getData(key: 'route');
+      uId = '';
+    } else {
+      print('user SignIn');
+      uId = user.uid;
+      route = CacheHelper.getData(key: 'route');
+    }
+  });
   runApp(Magna(
     appRouter: AppRouter(),
   ));
@@ -36,14 +45,17 @@ class Magna extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
-          onGenerateRoute: appRouter.generateRoute,
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData.light().copyWith(
-            floatingActionButtonTheme: const FloatingActionButtonThemeData(
-                backgroundColor: kPrimaryColor),
-            primaryColor: kPrimaryColor,
-            textTheme: GoogleFonts.arimaMaduraiTextTheme(),
+        return GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: (){
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
+          child: MaterialApp(
+            onGenerateRoute: appRouter.generateRoute,
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData.light().copyWith(
+              textTheme: GoogleFonts.arimaMaduraiTextTheme(),
+            ),
           ),
         );
       },

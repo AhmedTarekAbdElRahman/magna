@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magna/Core/utils/styles.dart';
-import 'package:magna/constant.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
@@ -12,28 +10,22 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 60.h,
-      color: kPrimaryColor,
-      child: Row(
-        children: [
-          IconButton(
-            iconSize: 40,
-            padding: EdgeInsets.zero,
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              color: Colors.white,
-            ),
-          ),
-          Text(
-            title,
-            style: Styles.appBarStyle,
-          )
-        ],
+    return AppBar(
+      title: Text(
+        title,
+        style: Styles.style24B,
       ),
     );
+    //   Container(
+    //   height: 56.0.h,
+    //   color: kPrimaryColor,
+    //   child: Align(
+    //     alignment: Alignment.centerLeft,
+    //     child: Text(
+    //       title,
+    //       style: Styles.style24B,
+    //     ),
+    //   ),
+    // );
   }
 }

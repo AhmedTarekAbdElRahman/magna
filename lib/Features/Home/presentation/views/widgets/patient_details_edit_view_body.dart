@@ -1,31 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:magna/Core/widgets/custom_drop_down_button.dart';
 import 'package:magna/Core/widgets/name_form_field.dart';
 import 'package:magna/Core/widgets/phone_form_field.dart';
-import 'package:magna/constant.dart';
+import 'package:magna/Features/Add/presentation/views/widgets/description_form_field.dart';
+import '../../../../../Core/model/patient_model/patient_model.dart';
 import '../../../../../Core/widgets/custom_app_bar.dart';
-import 'add_patient_button.dart';
-import 'description_form_field.dart';
+import '../../../../../constant.dart';
+import 'update_patient_button.dart';
 
-class AddPatientViewBody extends StatelessWidget {
-  const AddPatientViewBody({
-    Key? key,
-  }) : super(key: key);
+class PatientDetailsEditViewBody extends StatelessWidget {
+  const PatientDetailsEditViewBody({Key? key, required this.patientModel})
+      : super(key: key);
+  final PatientModel patientModel;
 
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
-    var nameController = TextEditingController();
-    var phoneController = TextEditingController();
-    var descriptionController = TextEditingController();
+    var nameController = TextEditingController(text: patientModel.name);
+    var phoneController = TextEditingController(text: patientModel.phone);
+    var descriptionController =
+        TextEditingController(text: patientModel.description);
 
     return Form(
       key: formKey,
       child: Column(
         children: [
           const CustomAppBar(
-            title: "NewPatient",
+            title: "UpdatePatient",
           ),
           Expanded(
             child: ListView(
@@ -38,7 +39,7 @@ class AddPatientViewBody extends StatelessWidget {
                       const CircleAvatar(
                         radius: 60,
                         backgroundImage:
-                            AssetImage('assets/images/download.png'),
+                            AssetImage('assets/images/patient.jpg'),
                       ),
                       IconButton(
                         onPressed: () {},
@@ -56,43 +57,25 @@ class AddPatientViewBody extends StatelessWidget {
                 SizedBox(
                   height: 20.h,
                 ),
-                NameFormField(
-                  nameController: nameController,
-                ),
+                NameFormField(nameController: nameController),
                 SizedBox(
                   height: 10.h,
                 ),
-                PhoneFormField(
-                  phoneController: phoneController,
-                ),
+                PhoneFormField(phoneController: phoneController),
                 SizedBox(
                   height: 10.h,
                 ),
-                const CustomDropDownButton(
-                  text: 'Gender',
-                  dropdownValue: gender,
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                DescriptionFormField(
-                  descriptionController: descriptionController,
-                ),
+                DescriptionFormField(descriptionController: descriptionController),
                 SizedBox(
                   height: 20.h,
                 ),
-                AddPatientButton(
-                  formKey: formKey,
-                  descriptionController: descriptionController,
-                  nameController: nameController,
-                  phoneController: phoneController,
-                ),
+                UpdateButton(formKey: formKey, nameController: nameController, phoneController: phoneController, descriptionController: descriptionController, id: patientModel.id!,),
                 SizedBox(
                   height: 20.h,
                 ),
               ],
             ),
-          ),
+          )
         ],
       ),
     );

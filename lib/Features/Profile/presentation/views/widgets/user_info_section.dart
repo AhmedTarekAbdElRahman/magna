@@ -17,8 +17,7 @@ class UserInfoSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<GetUserCubit,GetUserState>(builder:(context, state) {
       if(state is GetUserSuccess){
-        UserModel user= state.user;
-        print(user.phone);
+        final UserModel user= state.user;
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.0.w),
           child: Column(

@@ -52,6 +52,7 @@ dependencies:
   cached_network_image:
   bottom_navy_bar:
   flutter_offline:
+  flutter_slidable:
 
 dev_dependencies:
   flutter_test:

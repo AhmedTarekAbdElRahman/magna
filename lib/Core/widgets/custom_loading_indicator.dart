@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:magna/constant.dart';
 
 class CustomLoadingIndicator extends StatelessWidget {
-  const CustomLoadingIndicator({Key? key}) : super(key: key);
-
+  const CustomLoadingIndicator({Key? key,this.color=kPrimaryColor}) : super(key: key);
+  final Color color;
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: CircularProgressIndicator(),
+    return  Center(
+      child: CircularProgressIndicator(color: color),
     );
   }
 }

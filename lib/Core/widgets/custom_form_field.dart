@@ -15,7 +15,8 @@ class CustomFormFiled extends StatelessWidget {
     this.onTap,
     this.isPassword = false,
     this.isClickable = true,
-    this.maxLines=1,
+    this.maxLines = 1,
+    this.autofocus = false,
   }) : super(key: key);
   final TextEditingController? controller;
   final TextInputType? type;
@@ -30,12 +31,14 @@ class CustomFormFiled extends StatelessWidget {
   final GestureTapCallback? onTap;
   final bool isClickable;
   final int maxLines;
+  final bool autofocus;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: TextFormField(
+        autofocus: autofocus,
         maxLines: maxLines,
         enabled: isClickable,
         onTap: onTap,

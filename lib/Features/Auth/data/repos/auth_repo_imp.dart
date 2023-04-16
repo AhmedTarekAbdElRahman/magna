@@ -19,7 +19,7 @@ class AuthRepoImp implements AuthRepo {
       final result = await authService.signIn(
         userModel: userModel,
       );
-      return Right(result);
+      return right(result);
     } catch (e) {
       if (e is FirebaseAuthException) {
         return left(ServerFailure.fromFirebase(e));

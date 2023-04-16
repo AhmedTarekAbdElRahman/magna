@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:magna/Core/utils/service_locator.dart';
+import 'package:magna/Features/Add/data/repos/add_repo_imp.dart';
 import 'package:magna/Features/Auth/data/repos/auth_repo_imp.dart';
 import 'package:magna/Features/Auth/presentation/view_models/sign_up_cubit/sign_up_cubit.dart';
 import 'package:magna/Features/Auth/presentation/views/login_view.dart';
 import 'package:magna/Features/Auth/presentation/views/register_view.dart';
-import 'package:magna/Features/Edit/presentation/views/patient_details_edit_view.dart';
+import 'package:magna/Features/Home/data/repos/home_repo_imp.dart';
+import 'package:magna/Features/Home/presentation/view_models/delete_patient_cubit/delete_patient_cubit.dart';
+import 'package:magna/Features/Home/presentation/view_models/edit_patient_cubit/edit_patient_cubit.dart';
+import 'package:magna/Features/Home/presentation/views/patient_details_edit_view.dart';
+import 'package:magna/Features/Home/presentation/view_models/get_patients_cubit/get_patients_cubit.dart';
 import 'package:magna/Features/Profile/presentation/view_models/edit_profile_cubit/edit_profile_cubit.dart';
 import 'package:magna/Features/Profile/presentation/views/profile_edit_view.dart';
-import 'package:magna/Features/Home/presentation/views/doctor_patient_details_view.dart';
+import 'package:magna/Features/Home/presentation/views/patient_details_view.dart';
 import 'package:magna/Features/Intro/presentation/views/onboarding_view.dart';
 import 'package:magna/Features/Intro/presentation/views/splash_view.dart';
 import 'package:magna/Features/Layout/presentation/views/doctor_layout_view.dart';
 import 'package:magna/Features/Layout/presentation/views/nurse_layout_view.dart';
+import '../../Features/Add/presentation/view_models/add_patient_cubit/add_patient_cubit.dart';
 import '../../Features/Add/presentation/views/add_patient_view.dart';
 import '../../Features/Auth/presentation/view_models/sign_in_cubit/sign_in_cubit.dart';
-import '../../Features/Home/presentation/views/nurse_patient_details_view.dart';
 import '../../Features/Profile/data/repos/profile_repo_imp.dart';
 import '../../Features/Profile/presentation/view_models/get_user_cubit/get_user_cubit.dart';
 import '../../Features/Profile/presentation/view_models/sign_out_cubit/sign_out_cubit.dart';
@@ -27,8 +32,7 @@ class Routes {
   static const String kRegisterView = '/registerView';
   static const String kNurseLayoutView = '/nurseLayoutView';
   static const String kDoctorLayoutView = '/doctorLayoutView';
-  static const String kDoctorPatientDetailsView = '/doctorPatientDetailsView';
-  static const String kNursePatientDetailsView = '/nursePatientDetailsView';
+  static const String kPatientDetailsView = '/patientDetailsView';
   static const String kAddPatientView = '/addPatientView';
   static const String kUpdatePatientDetailsView = '/updatePatientDetailsView';
   static const String kProfileUpdateView = '/profileUpdateView';
@@ -83,6 +87,11 @@ class AppRouter {
                       getIt.get<ProfileRepoImp>(),
                     )..getUser(),
                   ),
+                  BlocProvider(
+                    create: (context) =>
+                    GetPatientsCubit(getIt.get<HomeRepoImp>())
+                      ..getPatients(),
+                  ),
                 ], child: const NurseLayoutView()),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
@@ -90,6 +99,9 @@ class AppRouter {
             });
       case Routes.kDoctorLayoutView:
         return PageRouteBuilder(
+            settings: RouteSettings(
+              arguments: settings.arguments,
+            ),
             pageBuilder: (context, animation, secondaryAnimation) =>
                 MultiBlocProvider(providers: [
                   BlocProvider(
@@ -102,39 +114,54 @@ class AppRouter {
                       getIt.get<ProfileRepoImp>(),
                     )..getUser(),
                   ),
+                  BlocProvider(
+                    create: (context) =>
+                        GetPatientsCubit(getIt.get<HomeRepoImp>())
+                          ..getPatients(),
+                  ),
+                  BlocProvider(
+                    create: (context) =>
+                        DeletePatientCubit(getIt.get<HomeRepoImp>()),
+                  )
                 ], child: const DoctorLayoutView()),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
               return customTransition(animation, child);
             });
-      case Routes.kDoctorPatientDetailsView:
+      case Routes.kPatientDetailsView:
         return PageRouteBuilder(
+            settings: RouteSettings(
+              arguments: settings.arguments,
+            ),
             pageBuilder: (context, animation, secondaryAnimation) =>
-                const DoctorPatientDetailsView(),
+                const PatientDetailsView(),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
               return customTransition(animation, child);
             });
-      case Routes.kNursePatientDetailsView:
-        return PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) =>
-                const NursePatientDetailsView(),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) {
-              return customTransition(animation, child);
-            });
+
       case Routes.kAddPatientView:
         return PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              const AddPatientView(),
+          pageBuilder: (context, animation, secondaryAnimation) => BlocProvider(
+              create: (context) => AddPatientCubit(getIt.get<AddRepoImp>()),
+              child: const AddPatientView()),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return customTransition(animation, child);
+            return ScaleTransition(
+              scale: animation,
+              alignment: Alignment.bottomCenter,
+              child: child,
+            );
           },
         );
       case Routes.kUpdatePatientDetailsView:
         return PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              const PatientDetailsEditView(),
+          settings: RouteSettings(
+            arguments: settings.arguments,
+          ),
+          pageBuilder: (context, animation, secondaryAnimation) => BlocProvider(
+            create: (context) => EditPatientCubit(getIt.get<HomeRepoImp>()),
+            child: const PatientDetailsEditView(),
+          ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return customTransition(animation, child);
           },

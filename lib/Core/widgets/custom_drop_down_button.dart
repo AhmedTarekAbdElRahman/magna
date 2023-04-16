@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../constant.dart';
 
 class CustomDropDownButton extends StatefulWidget {
@@ -55,7 +54,7 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
                   setState(() {
                     dropdownValue = value!;
                     userRole=value;
-                    print(userRole);
+                    patientGender=value;
                   });
                 },
                 borderRadius: BorderRadius.circular(16),

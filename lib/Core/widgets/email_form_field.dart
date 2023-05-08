@@ -14,7 +14,7 @@ class EmailFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomFormFiled(
       controller: emailController,
-      type: TextInputType.text,
+      type: TextInputType.emailAddress,
       validate: (String? value) {
         if (value!.isEmpty) {
           return 'Please,enter your email address';

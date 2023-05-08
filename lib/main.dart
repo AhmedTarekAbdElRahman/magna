@@ -53,9 +53,9 @@ class Magna extends StatelessWidget {
           child: MaterialApp(
             onGenerateRoute: appRouter.generateRoute,
             debugShowCheckedModeBanner: false,
-            theme: ThemeData.light().copyWith(
-              textTheme: GoogleFonts.arimaMaduraiTextTheme(),
-            ),
+            // theme: ThemeData.light().copyWith(
+            //   textTheme: GoogleFonts.arimaMaduraiTextTheme(),
+            // ),
           ),
         );
       },

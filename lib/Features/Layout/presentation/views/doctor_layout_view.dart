@@ -1,6 +1,7 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_offline/flutter_offline.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magna/Core/utils/app_routers.dart';
 import '../../../../constant.dart';
 
@@ -30,7 +31,7 @@ class _DoctorLayoutViewState extends State<DoctorLayoutView> {
               connected ? doctorScreens[_currentIndex] : child,
               AnimatedPositioned(
                 duration: const Duration(seconds: 1),
-                height: connected ? 0.0 : 50.0,
+                height: connected ? 0.0 : MediaQuery.of(context).padding.top+25.h,
                 left: 0.0,
                 right: 0.0,
                 child: AnimatedContainer(
@@ -54,7 +55,7 @@ class _DoctorLayoutViewState extends State<DoctorLayoutView> {
             ],
           );
         },
-        child: Image.asset('assets/images/no-connection.png', fit: BoxFit.fill),
+        child: Image.asset('assets/images/no-connection.png', fit: BoxFit.cover),
       ),
       bottomNavigationBar: BottomNavyBar(
         selectedIndex: _currentIndex,

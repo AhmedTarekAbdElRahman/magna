@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magna/Core/model/patient_model/patient_model.dart';
 import '../../../../../Core/utils/app_routers.dart';
+import '../../../../../constant.dart';
 
 class NursePatientsListViewItem extends StatelessWidget {
-  const NursePatientsListViewItem({Key? key, required this.patientModel})
+  const NursePatientsListViewItem({Key? key, required this.patientModel, required this.index})
       : super(key: key);
   final PatientModel patientModel;
-
+  final int index;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -19,7 +20,7 @@ class NursePatientsListViewItem extends StatelessWidget {
         splashColor: Colors.blue.withAlpha(30),
         onTap: () {
           Navigator.of(context)
-              .pushNamed(Routes.kPatientDetailsView, arguments: patientModel);
+              .pushNamed(Routes.kPatientDetailsView, arguments: [index,patientModel,'n'],);
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,12 +43,26 @@ class NursePatientsListViewItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    patientModel.name!,
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  Row(
+                    children: [
+                      Text(
+                        patientModel.name!,
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(width: 10.w,),
+                      Expanded(
+                        child: Text(
+                          patientModel.prediction!,
+                          style: TextStyle(
+                              fontSize: 14.sp,
+                              color: kPrimaryColor
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   Text(
                     patientModel.description!,

@@ -11,9 +11,25 @@ class SearchCubit extends Cubit<SearchState> {
 
   List<PatientModel> patientModel =[];
   List<PatientModel> searchModel =[];
-  Future<void> search({required String searchKey}) async {
+  Future<void> doctorSearch({required String searchKey}) async {
     emit(SearchLoading());
-    searchRepo.search().then((value){
+    searchRepo.doctorSearch().then((value){
+      value.fold((e) => emit(SearchFailure(e.errMessage)), (stream) {
+        stream.listen((event) {
+          patientModel=[];
+          for (var element in event.docs) {
+            patientModel.add(PatientModel.fromJson(element as QueryDocumentSnapshot<Map<String,dynamic>>));
+          }
+          searchModel=patientModel.where((patient) => patient.name!.toLowerCase().startsWith(searchKey)).toList();
+          emit(SearchSuccess(searchModel));
+        });
+      });
+    });
+
+  }
+  Future<void> nurseSearch({required String searchKey}) async {
+    emit(SearchLoading());
+    searchRepo.nurseSearch().then((value){
       value.fold((e) => emit(SearchFailure(e.errMessage)), (stream) {
         stream.listen((event) {
           patientModel=[];

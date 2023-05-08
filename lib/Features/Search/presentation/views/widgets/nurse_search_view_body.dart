@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:magna/Features/Search/presentation/views/widgets/search_form_field.dart';
-import 'package:magna/Features/Search/presentation/views/widgets/doctor_search_list_view.dart';
-
+import 'package:magna/Features/Search/presentation/views/widgets/nurse_search_form_field.dart';
 import 'nurse_search_list_view.dart';
 
 class NurseSearchViewBody extends StatelessWidget {
@@ -16,8 +14,8 @@ class NurseSearchViewBody extends StatelessWidget {
         SizedBox(
           height: 10.h,
         ),
-        SearchFormField(searchController: searchController),
-        const NurseSearchListView(),
+        NurseSearchFormField(searchController: searchController),
+        NurseSearchListView(searchController: searchController),
       ],
     );
   }

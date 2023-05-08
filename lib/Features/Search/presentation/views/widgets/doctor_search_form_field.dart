@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../Core/widgets/custom_form_field.dart';
 import '../../view_models/search_cubit/search_cubit.dart';
 
-class SearchFormField extends StatelessWidget {
-  const SearchFormField({
+class DoctorSearchFormField extends StatelessWidget {
+  const DoctorSearchFormField({
     Key? key,
     required this.searchController,
   }) : super(key: key);
@@ -24,7 +24,7 @@ class SearchFormField extends StatelessWidget {
       type: TextInputType.name,
       autofocus: true,
       onChange: (value) => BlocProvider.of<SearchCubit>(context)
-          .search(searchKey: searchController.text),
+          .doctorSearch(searchKey: searchController.text),
     );
   }
 }

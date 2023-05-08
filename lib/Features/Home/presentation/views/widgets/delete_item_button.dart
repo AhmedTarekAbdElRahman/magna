@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:magna/Features/Home/presentation/views/widgets/doctor_patients_list_view.dart';
 
 import '../../../../../Core/utils/functions/custom_toast.dart';
 import '../../../../../Core/widgets/custom_loading_indicator.dart';
@@ -12,13 +13,15 @@ class DeleteItemButton extends StatelessWidget {
     required this.patientId,
   }) : super(key: key);
   final String patientId;
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<DeletePatientCubit, DeletePatientState>(
       listener: (context, state) {
         if (state is DeletePatientFailure) {
           showToast(text: state.errMessage, state: ToastStates.error);
+        }
+        if(state is DeletePatientSuccess){
+          showToast(text: 'Removed successfully', state: ToastStates.success);
         }
       },
       builder: (context, state) {

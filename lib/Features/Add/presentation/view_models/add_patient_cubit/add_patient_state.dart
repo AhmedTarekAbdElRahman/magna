@@ -8,3 +8,13 @@ class AddPatientFailure extends AddPatientState{
   final String errMessage;
   AddPatientFailure(this.errMessage);
 }
+class AddImagePickedSuccess extends AddPatientState{}
+class AddImagePickedFailure extends AddPatientState{
+  AddImagePickedFailure();
+}
+class AddImageLoading extends AddPatientState{}
+class AddImageSuccess extends AddPatientState{}
+class AddImageFailure extends AddPatientState{
+  final String errMessage;
+  AddImageFailure(this.errMessage);
+}

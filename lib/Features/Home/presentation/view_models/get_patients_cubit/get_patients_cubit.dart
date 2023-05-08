@@ -9,28 +9,32 @@ class GetPatientsCubit extends Cubit<GetPatientsState> {
   final HomeRepo homeRepo;
   List<PatientModel>patientModel = [];
 
-  Future<void> getPatients() async{
-    // FirebaseFirestore.instance
-    //     .collection('patients')
-    //     .snapshots()
-    //     .listen((event) {
-    //      patientModel=[];
-    //   for (var element in event.docs) {
-    //     patientModel.add(PatientModel.fromJson(element));
-    //     print(element.data()['name']);
-    //   }
-    //   emit(GetPatientsSuccess(patientModel));
-    // });
+  Future<void> getDoctorPatients() async{
     emit(GetPatientsLoading());
-    homeRepo.getPatients().then((value){
+    await homeRepo.getDoctorPatients().then((value){
       value.fold((e) => emit(GetPatientsFailure(e.errMessage)), (stream) {
         stream.listen((event) {
           patientModel=[];
             for (var element in event.docs) {
-              patientModel.add(PatientModel.fromJson(element as QueryDocumentSnapshot<Map<String,dynamic>>));
+                patientModel.add(PatientModel.fromJson(element as QueryDocumentSnapshot<Map<String,dynamic>>));
             }
-            emit(GetPatientsSuccess(patientModel));
-        });
+            emit(GetDoctorPatientsSuccess(patientModel));
+        }).onError((err){print(err.toString());});
+      });
+    });
+
+  }
+  Future<void> getNursePatients() async{
+    emit(GetPatientsLoading());
+    await homeRepo.getNursePatients().then((value){
+      value.fold((e) => emit(GetPatientsFailure(e.errMessage)), (stream) {
+        stream.listen((event) {
+          patientModel=[];
+          for (var element in event.docs) {
+            patientModel.add(PatientModel.fromJson(element as QueryDocumentSnapshot<Map<String,dynamic>>));
+          }
+          emit(GetNursePatientsSuccess(patientModel));
+        }).onError((err){print(err.toString());});
       });
     });
 

@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../constant.dart';
 
-class CustomDropDownButton extends StatefulWidget {
-  const CustomDropDownButton({Key? key, required this.text, required this.dropdownValue}) : super(key: key);
-   final String text;
-   final List<String> dropdownValue;
+class ExerciseAngina extends StatefulWidget {
+  const ExerciseAngina({Key? key, required this.text, required this.dropdownValue}) : super(key: key);
+  final String text;
+  final List<String> dropdownValue;
   @override
-  State<CustomDropDownButton> createState() => _CustomDropDownButtonState();
+  State<ExerciseAngina> createState() => _ExerciseAnginaState();
 }
 
-class _CustomDropDownButtonState extends State<CustomDropDownButton> {
+class _ExerciseAnginaState extends State<ExerciseAngina> {
   late String dropdownValue;
   @override
   void initState() {
@@ -53,8 +53,7 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
                 onChanged: (String? value) {
                   setState(() {
                     dropdownValue = value!;
-                    userRole=value;
-                    patientGender=value;
+                    exerciseAnginaState=dropdownValue;
                   });
                 },
                 borderRadius: BorderRadius.circular(16),

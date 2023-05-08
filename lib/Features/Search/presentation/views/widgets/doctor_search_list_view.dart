@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:magna/Features/Search/presentation/views/widgets/doctor_search_patient_list_view_item.dart';
 import '../../../../../Core/widgets/custom_error_widget.dart';
 import '../../../../Home/presentation/views/widgets/delete_item_button.dart';
-import '../../../../Home/presentation/views/widgets/doctor_patients_list_view_item.dart';
 import '../../../../Home/presentation/views/widgets/edit_item_button.dart';
 import '../../view_models/search_cubit/search_cubit.dart';
 import '../../view_models/search_cubit/search_state.dart';
 
 class DoctorSearchListView extends StatelessWidget {
   const DoctorSearchListView({
-    Key? key,
+    Key? key, required this.searchController,
   }) : super(key: key);
+  final TextEditingController searchController;
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +44,10 @@ class DoctorSearchListView extends StatelessWidget {
                       )
                     ],
                   ),
-                  child: DoctorPatientsListViewItem(
-                      patientModel: state.searchModel[index]),
+                  child: DoctorSearchPatientsListViewItem(
+                    patientModel: state.searchModel[index],
+                    index: index, searchController: searchController,
+                  ),
                 );
               },
             ),

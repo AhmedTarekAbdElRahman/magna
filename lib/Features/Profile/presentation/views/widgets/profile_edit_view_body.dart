@@ -1,10 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../Core/model/user_model/user_model.dart';
 import '../../../../../Core/widgets/custom_app_bar.dart';
 import '../../../../../Core/widgets/custom_form_field.dart';
-import '../../../../../constant.dart';
+import 'change_profile_image_widget.dart';
 import 'update_profile_button.dart';
 
 class ProfileEditViewBody extends StatelessWidget {
@@ -22,45 +21,13 @@ class ProfileEditViewBody extends StatelessWidget {
       child: Column(
         children: [
           const CustomAppBar(
-            title: "UpdateProfile",
+            title: "Update Profile",
           ),
           Expanded(
             child: ListView(
               physics: const BouncingScrollPhysics(),
               children: [
-                Center(
-                  child: Stack(
-                    alignment: Alignment.bottomRight,
-                    children: [
-                      CircleAvatar(
-                        radius: MediaQuery.of(context).size.height / 9.8,
-                        backgroundColor: Colors.transparent,
-                        child: ClipOval(
-                          child: CachedNetworkImage(
-                            imageUrl: user.image!,
-                            placeholder: (context, url) => Container(
-                              color: Colors.grey[300],
-                            ),
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.error_outline),
-                            fit: BoxFit.cover,
-                            height: double.infinity,
-                          ),
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const CircleAvatar(
-                          backgroundColor: kPrimaryColor,
-                          child: Icon(
-                            Icons.camera_alt,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                ChangeProfileImageWidget(image: user.image!),
                 SizedBox(
                   height: 20.h,
                 ),
@@ -96,7 +63,12 @@ class ProfileEditViewBody extends StatelessWidget {
                 SizedBox(
                   height: 20.h,
                 ),
-                UpdateProfileButton(formKey: formKey, nameController: nameController, phoneController: phoneController),
+                UpdateProfileButton(
+                    formKey: formKey,
+                    nameController: nameController,
+                    phoneController: phoneController,
+                  image: user.image!,
+                ),
                 SizedBox(
                   height: 20.h,
                 ),

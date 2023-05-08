@@ -2,6 +2,7 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_offline/flutter_offline.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:magna/constant.dart';
 
 class NurseLayoutView extends StatefulWidget {
@@ -30,7 +31,7 @@ class _NurseLayoutViewState extends State<NurseLayoutView> {
               connected ? nurseScreens[_currentIndex] : child,
               AnimatedPositioned(
                 duration: const Duration(seconds: 1),
-                height: connected ? 0.0 : 50.0,
+                height: connected ? 0.0 :MediaQuery.of(context).padding.top+25.h,
                 left: 0.0,
                 right: 0.0,
                 child: AnimatedContainer(

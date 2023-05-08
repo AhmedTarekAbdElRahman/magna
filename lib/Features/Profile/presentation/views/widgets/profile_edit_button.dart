@@ -7,7 +7,8 @@ import 'profile_button.dart';
 
 class ProfileEditButton extends StatelessWidget {
   const ProfileEditButton({
-    Key? key, required this.user,
+    Key? key,
+    required this.user,
   }) : super(key: key);
   final UserModel user;
 
@@ -16,11 +17,17 @@ class ProfileEditButton extends StatelessWidget {
     return Expanded(
       flex: 1,
       child: ProfileButton(
-          child: const Icon(Icons.edit),
-          function: () {
-            Navigator.of(context).pushNamed(Routes.kProfileUpdateView, arguments: user).then((value) =>
-                BlocProvider.of<GetUserCubit>(context).getUser());
-          }),
+        child: const Icon(Icons.edit),
+        function: () {
+          Navigator.of(context)
+              .pushNamed(Routes.kProfileUpdateView, arguments: user)
+              .then((value) {
+            if (value == 'update') {
+              BlocProvider.of<GetUserCubit>(context).getUser();
+            }
+          });
+        },
+      ),
     );
   }
 }

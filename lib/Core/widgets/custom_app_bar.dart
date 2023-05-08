@@ -16,16 +16,5 @@ class CustomAppBar extends StatelessWidget {
         style: Styles.style24B,
       ),
     );
-    //   Container(
-    //   height: 56.0.h,
-    //   color: kPrimaryColor,
-    //   child: Align(
-    //     alignment: Alignment.centerLeft,
-    //     child: Text(
-    //       title,
-    //       style: Styles.style24B,
-    //     ),
-    //   ),
-    // );
   }
 }

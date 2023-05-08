@@ -5,7 +5,6 @@ import 'package:magna/Core/widgets/custom_error_widget.dart';
 import 'package:magna/Core/widgets/custom_loading_indicator.dart';
 import 'package:magna/Features/Home/presentation/view_models/get_patients_cubit/get_patients_cubit.dart';
 import 'package:magna/Features/Home/presentation/view_models/get_patients_cubit/get_patients_state.dart';
-
 import '../../../../../Core/utils/styles.dart';
 import 'delete_item_button.dart';
 import 'doctor_patients_list_view_item.dart';
@@ -18,10 +17,11 @@ class DoctorPatientsListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<GetPatientsCubit, GetPatientsState>(
       builder: (context, state) {
-        if(state is GetPatientsFailure){
-          return CustomErrorWidget(errMessage: state.errMessage,);
-        }
-        else if (state is GetPatientsSuccess) {
+        if (state is GetPatientsFailure) {
+          return CustomErrorWidget(
+            errMessage: state.errMessage,
+          );
+        } else if (state is GetDoctorPatientsSuccess) {
           if (state.patientModel.isEmpty) {
             return Expanded(
               child: Center(
@@ -36,23 +36,29 @@ class DoctorPatientsListView extends StatelessWidget {
               itemCount: state.patientModel.length,
               itemBuilder: (context, index) {
                 return Slidable(
-                    endActionPane: ActionPane(
-                      motion: const ScrollMotion(),
-                      extentRatio: 0.25,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            children: [
-                              EditItemButton(patientModel: state.patientModel[index],),
-                              DeleteItemButton(patientId: state.patientModel[index].id!,)
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                    child:
-                  DoctorPatientsListViewItem(
-                    patientModel: state.patientModel[index]),);
+                  endActionPane: ActionPane(
+                    motion: const ScrollMotion(),
+                    extentRatio: 0.25,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          children: [
+                            EditItemButton(
+                              patientModel: state.patientModel[index],
+                            ),
+                            DeleteItemButton(
+                              patientId: state.patientModel[index].id!,
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  child: DoctorPatientsListViewItem(
+                    patientModel: state.patientModel[index],
+                    index: index,
+                  ),
+                );
               },
             ),
           );

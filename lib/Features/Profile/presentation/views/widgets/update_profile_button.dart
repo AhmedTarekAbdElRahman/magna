@@ -13,12 +13,13 @@ class UpdateProfileButton extends StatelessWidget {
     required this.formKey,
     required this.nameController,
     required this.phoneController,
+    required this.image,
   }) : super(key: key);
 
   final GlobalKey<FormState> formKey;
   final TextEditingController nameController;
   final TextEditingController phoneController;
-
+  final String image;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<EditProfileCubit, EditProfileState>(
@@ -27,11 +28,11 @@ class UpdateProfileButton extends StatelessWidget {
           showToast(
               text: state.errMessage, state: ToastStates.error);
         } else if (state is EditProfileSuccess) {
-          Navigator.of(context).pop();
+          Navigator.of(context).pop("update");
         }
       },
       builder: (context, state) {
-        if (state is EditProfileLoading) {
+        if (state is EditProfileImageLoading || state is EditProfileLoading) {
           return const CustomLoadingIndicator();
         } else {
           return CustomButton(
@@ -39,13 +40,14 @@ class UpdateProfileButton extends StatelessWidget {
             onPressed: () {
               if (formKey.currentState!.validate()) {
                 BlocProvider.of<EditProfileCubit>(context)
-                    .editProfile(
+                    .uploadProfileImage(
+                  image: image,
                   name: nameController.text,
                   phone: phoneController.text,
                 );
               }
             },
-            text: 'Update',
+            text: 'Save',
           );
         }
       },

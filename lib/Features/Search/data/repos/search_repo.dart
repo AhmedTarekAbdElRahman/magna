@@ -3,5 +3,6 @@ import 'package:dartz/dartz.dart';
 import 'package:magna/Core/errors/failures.dart';
 
 abstract class SearchRepo{
-  Future<Either<Failure,Stream<QuerySnapshot<Object?>>>> search();
+  Future<Either<Failure,Stream<QuerySnapshot<Object?>>>> doctorSearch();
+  Future<Either<Failure,Stream<QuerySnapshot<Object?>>>> nurseSearch();
 }

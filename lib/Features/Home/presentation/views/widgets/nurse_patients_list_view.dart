@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:magna/Core/utils/styles.dart';
 import 'package:magna/Core/widgets/custom_error_widget.dart';
 import 'package:magna/Core/widgets/custom_loading_indicator.dart';
 import 'package:magna/Features/Home/presentation/view_models/get_patients_cubit/get_patients_cubit.dart';
@@ -11,22 +12,35 @@ class NursePatientsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetPatientsCubit,GetPatientsState>(
+    return BlocBuilder<GetPatientsCubit, GetPatientsState>(
       builder: (context, state) {
-        if(state is GetPatientsSuccess){
+        if (state is GetNursePatientsSuccess) {
+          if (state.patientModel.isEmpty) {
+            return Expanded(
+              child: Center(
+                child: Text(
+                  'No Patient Yet',
+                  style: Styles.style24B,
+                ),
+              ),
+            );
+          }
           return Expanded(
             child: ListView.builder(
               padding: EdgeInsets.zero,
               physics: const BouncingScrollPhysics(),
               itemCount: state.patientModel.length,
-              itemBuilder:(context, index) {
-                return NursePatientsListViewItem(patientModel:state.patientModel[index] ,);
+              itemBuilder: (context, index) {
+                return NursePatientsListViewItem(
+                  patientModel: state.patientModel[index],
+                  index: index,
+                );
               },
             ),
           );
-        }else if(state is GetPatientsFailure){
+        } else if (state is GetPatientsFailure) {
           return CustomErrorWidget(errMessage: state.errMessage);
-        }else{
+        } else {
           return const CustomLoadingIndicator();
         }
       },

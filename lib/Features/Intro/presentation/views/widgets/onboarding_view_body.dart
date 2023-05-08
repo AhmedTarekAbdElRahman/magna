@@ -76,7 +76,7 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
               'SKIP',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 24.sp,
+                fontSize: 20.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),

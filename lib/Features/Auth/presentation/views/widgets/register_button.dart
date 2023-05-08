@@ -30,7 +30,7 @@ class RegisterButton extends StatelessWidget {
       listener: (context, state) {
         if (state is SignUpSuccess) {
             Navigator.of(context).pushReplacementNamed(Routes.kLoginView);
-            showToast(text: 'Register success', state: ToastStates.success);
+            showToast(text: 'Registered successfully', state: ToastStates.success);
         } else if (state is SignUpFailure) {
           showToast(text: state.errMessage, state: ToastStates.error);
           debugPrint(state.errMessage);

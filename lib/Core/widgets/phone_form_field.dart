@@ -19,6 +19,9 @@ class PhoneFormField extends StatelessWidget {
         if (value!.isEmpty) {
           return 'Please,enter your phone';
         }
+        if(value.length != 11){
+          return 'Please,enter 11 numbers';
+        }
         return null;
       },
       label: 'Phone',

@@ -3,12 +3,19 @@ import 'package:magna/Core/model/patient_model/patient_model.dart';
 import 'package:magna/Features/Home/presentation/views/widgets/patient_details_view_body.dart';
 
 class PatientDetailsView extends StatelessWidget {
-  const PatientDetailsView({Key? key}) : super(key: key);
+  const PatientDetailsView({
+    Key? key,
+    required this.patientModel,
+    required this.index,
+
+  }) : super(key: key);
+  final PatientModel patientModel;
+  final int index;
+
   @override
   Widget build(BuildContext context) {
-    PatientModel? patientModel=ModalRoute.of(context)!.settings.arguments as PatientModel?;
-    return  Scaffold(
-      body: PatientDetailsViewBody(patientModel: patientModel!),
+    return Scaffold(
+      body: PatientDetailsViewBody(patientModel: patientModel, index: index),
     );
   }
 }

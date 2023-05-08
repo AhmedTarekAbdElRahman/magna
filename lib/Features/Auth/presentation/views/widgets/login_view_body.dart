@@ -40,7 +40,6 @@ class LoginViewBody extends StatelessWidget {
               ),
               PasswordFormField(
                   passwordController: passwordController,
-                  formKey: formKey,
                   ),
               SizedBox(
                 height: 15.h,

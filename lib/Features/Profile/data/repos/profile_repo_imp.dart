@@ -1,18 +1,20 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:magna/Core/errors/failures.dart';
 import 'package:magna/Core/firebase/auth_service.dart';
-import 'package:magna/Core/firebase/firestorage_service.dart';
+import 'package:magna/Core/firebase/firestore_service.dart';
+import 'package:magna/Core/firebase/storage_service.dart';
 import 'package:magna/Features/Profile/data/repos/profile_repo.dart';
-
 import '../../../../Core/model/user_model/user_model.dart';
 import '../../../../constant.dart';
 
 class ProfileRepoImp implements ProfileRepo {
   final AuthService authService;
-  final FireStorageService fireStorageService;
+  final FireStoreService fireStorageService;
+  final StorageService storageService;
 
-  ProfileRepoImp(this.authService, this.fireStorageService);
+  ProfileRepoImp(this.authService, this.fireStorageService, this.storageService);
 
   @override
   Future<Either<Failure, void>> userSignOut() async {
@@ -24,41 +26,42 @@ class ProfileRepoImp implements ProfileRepo {
     }
   }
 
-  // late UserModel userModel;
-  // @override
-  // Future<Either<Failure, UserModel>> getUser() async{
-  //   try {
-  //     fireStorageService.getUser().listen((event) {
-  //       userModel=UserModel.fromJson(event.data() as Map<String,dynamic>);
-  //     });
-  //     return right(userModel);
-  //   } catch (e) {
-  //     return left(ServerFailure(e.toString()));
-  //   }
-  // }
-
-@override
-Future<Either<Failure, UserModel>> getUser() async{
-  late UserModel userModel;
-  try{
-    final result = await fireStorageService.getUser(uId: uId);
-    userModel=UserModel.fromJson(result.data() as Map<String,dynamic>);
-    print(result);
-    print(userModel.name);
-    return right(userModel);
-  }catch(e){
-    return left(ServerFailure(e.toString()));
+  @override
+  Future<Either<Failure, UserModel>> getUser() async {
+    late UserModel userModel;
+    try {
+      final result = await fireStorageService.getDoc(uId: uId,collectionReference: users);
+      userModel = UserModel.fromJson(result.data() as Map<String, dynamic>);
+      return right(userModel);
+    } catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
   }
-}
 
   @override
   Future<Either<Failure, void>> editUser({required UserModel userModel}) async {
     try {
-      await fireStorageService.editUser(userModel: userModel);
+      await fireStorageService.editDoc(model: userModel.editMap(),collectionReference: users,id: userModel.uId!);
       return right(null);
     } catch (e) {
       return left(ServerFailure(e.toString()));
     }
   }
 
+String? imageUrl;
+  @override
+  Future<Either<Failure, String>> uploadImage(
+      {required File profileImage}) async {
+    try {
+       await storageService.uploadImage(image: profileImage).then((value)async{
+         await value.ref.getDownloadURL().then((value){
+           imageUrl=value;
+         });
+       });
+
+      return right(imageUrl!);
+    } catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
+  }
 }

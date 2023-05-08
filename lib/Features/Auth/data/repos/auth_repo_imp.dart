@@ -1,14 +1,15 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:magna/Core/firebase/auth_service.dart';
-import 'package:magna/Core/firebase/firestorage_service.dart';
+import 'package:magna/Core/firebase/firestore_service.dart';
 import 'package:magna/Features/Auth/data/repos/auth_repo.dart';
+import 'package:magna/constant.dart';
 import '../../../../Core/errors/failures.dart';
 import '../../../../Core/model/user_model/user_model.dart';
 
 class AuthRepoImp implements AuthRepo {
   final AuthService authService;
-  final FireStorageService fireStorageService;
+  final FireStoreService fireStorageService;
 
   AuthRepoImp(this.authService, this.fireStorageService);
 
@@ -48,7 +49,7 @@ class AuthRepoImp implements AuthRepo {
   Future<Either<Failure, void>> postUserData(
       {required UserModel userModel}) async {
     try {
-      final result = await fireStorageService.addUser(userModel: userModel);
+      final result = await fireStorageService.setDoc(model:userModel.toMap(),collectionReference: users);
       return right(result);
     } catch (e) {
       return left(ServerFailure(e.toString()));
@@ -58,7 +59,7 @@ class AuthRepoImp implements AuthRepo {
   @override
   Future<Either<Failure, bool>> getUserRole({required String uId}) async {
     try {
-      final result = await fireStorageService.getUser(uId: uId).then((value){
+      final result = await fireStorageService.getDoc(uId: uId,collectionReference: users).then((value){
         if(value.get('role')=='Doctor'){
           return true;
         }else{

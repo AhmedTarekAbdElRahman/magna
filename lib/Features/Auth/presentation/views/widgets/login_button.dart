@@ -32,7 +32,7 @@ class LoginButton extends StatelessWidget {
               Navigator.of(context)
                   .pushNamedAndRemoveUntil(Routes.kDoctorLayoutView,(route) => false,);
               showToast(
-                  text: 'Login success', state: ToastStates.success);
+                  text: 'Login successfully', state: ToastStates.success);
             });
           } else {
             CacheHelper.saveData(key: 'route', value: Routes.kNurseLayoutView)

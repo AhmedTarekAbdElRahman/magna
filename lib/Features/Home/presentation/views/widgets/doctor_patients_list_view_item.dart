@@ -1,19 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:magna/Core/model/patient_model/patient_model.dart';
+import 'package:magna/constant.dart';
 import '../../../../../Core/utils/app_routers.dart';
-import 'delete_item_button.dart';
-import 'edit_item_button.dart';
+
 
 class DoctorPatientsListViewItem extends StatelessWidget {
   const DoctorPatientsListViewItem({
     Key? key,
-    required this.patientModel,
+    required this.patientModel, required this.index,
   }) : super(key: key);
   final PatientModel patientModel;
-
+  final int index;
   @override
   Widget build(BuildContext context) {
     return  Card(
@@ -24,7 +23,7 @@ class DoctorPatientsListViewItem extends StatelessWidget {
           splashColor: Colors.blue.withAlpha(30),
           onTap: () {
             Navigator.of(context)
-                .pushNamed(Routes.kPatientDetailsView, arguments: patientModel);
+                .pushNamed(Routes.kPatientDetailsView, arguments: [index,patientModel,'d']);
           },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,12 +49,26 @@ class DoctorPatientsListViewItem extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            patientModel.name!,
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          Row(
+                            children: [
+                              Text(
+                                patientModel.name!,
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(width: 10.w,),
+                              Expanded(
+                                child: Text(
+                                  patientModel.prediction!,
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                    color: kPrimaryColor
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                           Text(
                             patientModel.description!,

@@ -5,9 +5,13 @@ abstract class GetPatientsState{}
 class GetPatientsInitial extends GetPatientsState{}
 
 class GetPatientsLoading extends GetPatientsState{}
-class GetPatientsSuccess extends GetPatientsState{
+class GetDoctorPatientsSuccess extends GetPatientsState{
   final List<PatientModel>patientModel;
-  GetPatientsSuccess(this.patientModel);
+  GetDoctorPatientsSuccess(this.patientModel);
+}
+class GetNursePatientsSuccess extends GetPatientsState{
+  final List<PatientModel>patientModel;
+  GetNursePatientsSuccess(this.patientModel);
 }
 class GetPatientsFailure extends GetPatientsState{
   final String errMessage;

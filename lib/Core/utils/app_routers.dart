@@ -18,12 +18,15 @@ import 'package:magna/Features/Intro/presentation/views/onboarding_view.dart';
 import 'package:magna/Features/Intro/presentation/views/splash_view.dart';
 import 'package:magna/Features/Layout/presentation/views/doctor_layout_view.dart';
 import 'package:magna/Features/Layout/presentation/views/nurse_layout_view.dart';
+import 'package:magna/Features/Search/data/repos/search_repo_imp.dart';
 import '../../Features/Add/presentation/view_models/add_patient_cubit/add_patient_cubit.dart';
 import '../../Features/Add/presentation/views/add_patient_view.dart';
 import '../../Features/Auth/presentation/view_models/sign_in_cubit/sign_in_cubit.dart';
 import '../../Features/Profile/data/repos/profile_repo_imp.dart';
 import '../../Features/Profile/presentation/view_models/get_user_cubit/get_user_cubit.dart';
 import '../../Features/Profile/presentation/view_models/sign_out_cubit/sign_out_cubit.dart';
+import '../../Features/Search/presentation/view_models/search_cubit/search_cubit.dart';
+import '../../Features/Search/presentation/views/search_patient_details_view.dart';
 
 class Routes {
   static const String splashView = "/";
@@ -33,6 +36,7 @@ class Routes {
   static const String kNurseLayoutView = '/nurseLayoutView';
   static const String kDoctorLayoutView = '/doctorLayoutView';
   static const String kPatientDetailsView = '/patientDetailsView';
+  static const String kSearchPatientDetailsView = '/searchPatientDetailsView';
   static const String kAddPatientView = '/addPatientView';
   static const String kUpdatePatientDetailsView = '/updatePatientDetailsView';
   static const String kProfileUpdateView = '/profileUpdateView';
@@ -89,8 +93,8 @@ class AppRouter {
                   ),
                   BlocProvider(
                     create: (context) =>
-                    GetPatientsCubit(getIt.get<HomeRepoImp>())
-                      ..getPatients(),
+                        GetPatientsCubit(getIt.get<HomeRepoImp>())
+                          ..getNursePatients(),
                   ),
                 ], child: const NurseLayoutView()),
             transitionsBuilder:
@@ -117,7 +121,7 @@ class AppRouter {
                   BlocProvider(
                     create: (context) =>
                         GetPatientsCubit(getIt.get<HomeRepoImp>())
-                          ..getPatients(),
+                          ..getDoctorPatients(),
                   ),
                   BlocProvider(
                     create: (context) =>
@@ -130,16 +134,28 @@ class AppRouter {
             });
       case Routes.kPatientDetailsView:
         return PageRouteBuilder(
-            settings: RouteSettings(
-              arguments: settings.arguments,
-            ),
-            pageBuilder: (context, animation, secondaryAnimation) =>
-                const PatientDetailsView(),
+
+            pageBuilder: (context, animation, secondaryAnimation){
+              List<dynamic> arg=settings.arguments as List<dynamic>;
+                return BlocProvider<GetPatientsCubit>.value(
+                    value: arg[2]=='d'? (GetPatientsCubit(getIt.get<HomeRepoImp>())..getDoctorPatients()):GetPatientsCubit(getIt.get<HomeRepoImp>())..getNursePatients(),
+                    child:  PatientDetailsView(index: arg[0],patientModel:arg[1],));},
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
               return customTransition(animation, child);
             });
+      case Routes.kSearchPatientDetailsView:
+        return PageRouteBuilder(
 
+            pageBuilder: (context, animation, secondaryAnimation){
+              List<dynamic> arg=settings.arguments as List<dynamic>;
+              return BlocProvider<SearchCubit>.value(
+                  value:arg[2]=='n'? (SearchCubit(getIt.get<SearchRepoImp>())..nurseSearch(searchKey: arg[3])):(SearchCubit(getIt.get<SearchRepoImp>())..doctorSearch(searchKey: arg[3])),
+                  child:  SearchPatientDetailsView(index: arg[0],patientModel:arg[1],));},
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return customTransition(animation, child);
+            });
       case Routes.kAddPatientView:
         return PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) => BlocProvider(
@@ -184,13 +200,6 @@ class AppRouter {
     }
   }
 
-  FadeTransition customTransition(Animation<double> animation, Widget child) {
-    return FadeTransition(
-      opacity: animation,
-      child: child,
-    );
-  }
-
   static Route<dynamic> unDefinedRoute() {
     return MaterialPageRoute(
       builder: (_) => Scaffold(
@@ -203,4 +212,11 @@ class AppRouter {
       ),
     );
   }
+}
+
+FadeTransition customTransition(Animation<double> animation, Widget child) {
+  return FadeTransition(
+    opacity: animation,
+    child: child,
+  );
 }

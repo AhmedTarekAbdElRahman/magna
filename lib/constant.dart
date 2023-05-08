@@ -1,4 +1,5 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:magna/Features/Search/presentation/views/nurse_search_view.dart';
 import 'Features/Home/presentation/views/doctor_home_view.dart';
@@ -7,10 +8,15 @@ import 'Features/Profile/presentation/views/profile_view.dart';
 import 'Features/Search/presentation/views/doctor_search_view.dart';
 String uId='';
 const kPrimaryColor = Colors.blue;
-const List<String> roleList = <String>['Doctor', 'Nurse'];
 String userRole='Doctor';
+const List<String> roleList = <String>['Doctor', 'Nurse'];
 String patientGender='Male';
 const List<String> gender = <String>['Male', 'Female'];
+String chestPainType='typicalAngina';
+const List<String> chestPainTypes = <String>['Typical Angina', 'Atypical Angina','Non-Angina Pain', 'Asymptomatic'];
+String exerciseAnginaState='Yes';
+const List<String> exerciseAngina = <String>['Yes','No'];
+
 late String route;
 String defaultImage='https://img.freepik.com/free-photo/enchanting-blinde-woman-trendy-knitted-sweater-expressing-happiness-indoor-portrait-charming-european-woman-standing-orange_197531-12473.jpg?t=st=1681308353~exp=1681308953~hmac=168fb363dfdf14c7a9b9323f3806672b4932ce6d10cc2a400444968aeddd8651';
 List<BottomNavyBarItem> doctorBottomNavyBarItem=<BottomNavyBarItem>[
@@ -56,3 +62,8 @@ List<Widget> nurseScreens=<Widget>[
   const NurseSearchView(),
   const ProfileView(),
 ];
+
+final CollectionReference users =
+FirebaseFirestore.instance.collection('users');
+final CollectionReference patients =
+FirebaseFirestore.instance.collection('patients');

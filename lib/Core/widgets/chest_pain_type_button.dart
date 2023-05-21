@@ -11,11 +11,10 @@ class ChestPainType extends StatefulWidget {
 }
 
 class _ChestPainTypeState extends State<ChestPainType> {
-  late String dropdownValue;
   @override
   void initState() {
     super.initState();
-    dropdownValue = widget.dropdownValue.first;
+    chestPainType = widget.text;
   }
   @override
   Widget build(BuildContext context) {
@@ -25,7 +24,7 @@ class _ChestPainTypeState extends State<ChestPainType> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            widget.text,
+            'Chest Pain types',
             style: TextStyle(
               fontSize: 18.sp,
               color: Colors.grey[800],
@@ -42,7 +41,7 @@ class _ChestPainTypeState extends State<ChestPainType> {
             ),
             child: DropdownButtonHideUnderline(
               child: DropdownButton(
-                value: dropdownValue,
+                value: chestPainType,
                 icon: const Icon(Icons.arrow_drop_down),
                 items: widget.dropdownValue.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
@@ -52,8 +51,8 @@ class _ChestPainTypeState extends State<ChestPainType> {
                 }).toList(),
                 onChanged: (String? value) {
                   setState(() {
-                    dropdownValue = value!;
-                    chestPainType=dropdownValue;
+                    chestPainType = value!;
+                    //chestPainType=dropdownValue;
                   });
                 },
                 borderRadius: BorderRadius.circular(16),

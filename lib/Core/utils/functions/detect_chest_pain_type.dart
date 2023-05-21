@@ -5,7 +5,15 @@ String detectChestPainType(String chestPain){
     return '2';
   }else if(chestPain=='Non-Angina Pain'){
     return '3';
-  }else {
+  }else if(chestPain=='Asymptomatic'){
     return '4';
+  }if(chestPain=='1'){
+    return 'Typical Angina';
+  }else if(chestPain=='2'){
+    return 'Atypical Angina';
+  }else if(chestPain=='3'){
+    return 'Non-Angina Pain';
+  }else {
+    return 'Asymptomatic';
   }
 }

@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 Future<void> showToast({required String text, required ToastStates state}) =>
     Fluttertoast.showToast(
-        msg: text,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 5,
-        backgroundColor: chooseToastColor(state),
-        textColor: Colors.white,
-        fontSize: 16.0);
+      msg: text,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 5,
+      backgroundColor: chooseToastColor(state),
+      textColor: Colors.white,
+      fontSize: 16.0.sp,
+    );
 
 enum ToastStates { success, error, warning }
 
@@ -23,7 +25,7 @@ Color chooseToastColor(ToastStates state) {
       color = Colors.red;
       break;
     case ToastStates.warning:
-      color = Colors.yellow;
+      color = Colors.grey;
       break;
   }
   return color;

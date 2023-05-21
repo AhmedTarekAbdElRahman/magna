@@ -14,4 +14,12 @@ abstract class Styles {
   );
   static final style20 = TextStyle(
       fontSize: 20.sp, color: Colors.black, fontWeight: FontWeight.normal);
+  static final style20BB = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 20.sp, color: kPrimaryColor, );
+  static final style18B = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 18.sp, );
+
 }
+

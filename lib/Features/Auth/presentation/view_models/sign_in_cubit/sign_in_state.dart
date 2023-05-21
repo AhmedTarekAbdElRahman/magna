@@ -14,9 +14,9 @@ class SignInFailure extends SignInState{
 }
 class GetUserRoleLoading extends SignInState{}
 class GetUserRoleSuccess extends SignInState{
-  final bool roleDoctor;
+  final String userRole;
 
-  GetUserRoleSuccess(this.roleDoctor);
+  GetUserRoleSuccess(this.userRole);
 }
 class GetUserRoleFailure extends SignInState{
   final String errMessage;

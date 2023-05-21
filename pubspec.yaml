@@ -55,8 +55,9 @@ dependencies:
   flutter_slidable:
   image_picker:
   firebase_storage:
-  intl:
-
+  firebase_messaging:
+  firebase:
+  dio:
 dev_dependencies:
   flutter_launcher_icons:
   flutter_test:
@@ -83,6 +84,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
       - assets/images/
+      - android/app/src/main/res/drawable/notification.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -112,5 +114,6 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 flutter_icons:
   image_path: "assets/images/MAGNA.jpg"
-  android: true
+  android: "launcher_icon"
   ios: true
+  min_sdk_android: 21

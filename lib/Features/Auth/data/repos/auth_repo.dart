@@ -15,6 +15,14 @@ abstract class AuthRepo {
   Future<Either<Failure, void>> postUserData({
     required UserModel userModel,
   });
+  Future<Either<Failure, void>> postUserRole({
+    required UserModel userModel,
+  });
 
-  Future<Either<Failure, bool>> getUserRole({required String uId});
+  Future<Either<Failure, String>> getUserRole({required String uId});
+  Future<Either<Failure, void>> changePassword({
+    required String email,
+    required String oldPassword,
+    required String newPassword,
+  });
 }

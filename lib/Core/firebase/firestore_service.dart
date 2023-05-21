@@ -4,8 +4,8 @@ import '../../constant.dart';
 class FireStoreService {
   Future<void> setDoc(
       {required Map<String, dynamic> model,
-      required CollectionReference collectionReference}) async {
-    return await collectionReference.doc(model['uId']).set(model);
+      required CollectionReference collectionReference,required String uId}) async {
+    return await collectionReference.doc(uId).set(model);
   }
 
   Future<DocumentSnapshot> getDoc(
@@ -31,7 +31,11 @@ class FireStoreService {
       required CollectionReference collectionReference}) async {
     return await collectionReference.doc(id).update(model);
   }
-
+  Stream<DocumentSnapshot> getDocSnapshot(
+      {required String uId,
+        required CollectionReference collectionReference}) async* {
+   yield* collectionReference.doc(uId).snapshots();
+  }
   Stream<QuerySnapshot<Object?>> getCollectionWithQuery() async* {
     yield* patients
         .where('doctorId', isEqualTo: uId)
@@ -40,6 +44,6 @@ class FireStoreService {
   }
 
   Stream<QuerySnapshot<Object?>> getCollection() async* {
-    yield* patients.orderBy(descending: true, 'createdAt').snapshots();
+    yield* patients.where('atHome', isEqualTo: false).orderBy(descending: true, 'createdAt').snapshots();
   }
 }

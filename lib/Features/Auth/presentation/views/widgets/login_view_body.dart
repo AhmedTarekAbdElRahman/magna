@@ -22,6 +22,25 @@ class LoginViewBody extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Hero(
+                tag: 1,
+                child: Center(
+                  child: CircleAvatar(
+                    radius: MediaQuery.of(context).size.height / 9.8,
+                    backgroundColor: Colors.transparent,
+                    child:
+                    ClipOval(
+                      child: Image.asset(
+                       'assets/images/MAGNA.jpg',
+                        fit: BoxFit.cover,
+                        height: double.infinity,
+                        width: double.infinity,
+                      ),
+                    )
+                  ),
+                ),
+              ),
+              SizedBox(height: 30.h,),
               Padding(
                 padding: EdgeInsets.only(left: 20.0.w),
                 child: Text(

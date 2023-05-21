@@ -9,7 +9,7 @@ class CustomFormFiled extends StatelessWidget {
     this.onChange,
     required this.validate,
     required this.label,
-    required this.prefix,
+    this.prefix,
     this.suffix,
     this.suffixPress,
     this.onTap,

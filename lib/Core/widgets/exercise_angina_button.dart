@@ -11,11 +11,10 @@ class ExerciseAngina extends StatefulWidget {
 }
 
 class _ExerciseAnginaState extends State<ExerciseAngina> {
-  late String dropdownValue;
   @override
   void initState() {
     super.initState();
-    dropdownValue = widget.dropdownValue.first;
+    exerciseAnginaState = widget.text;
   }
   @override
   Widget build(BuildContext context) {
@@ -25,7 +24,7 @@ class _ExerciseAnginaState extends State<ExerciseAngina> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            widget.text,
+            'Exercise Angina',
             style: TextStyle(
               fontSize: 18.sp,
               color: Colors.grey[800],
@@ -42,7 +41,7 @@ class _ExerciseAnginaState extends State<ExerciseAngina> {
             ),
             child: DropdownButtonHideUnderline(
               child: DropdownButton(
-                value: dropdownValue,
+                value: exerciseAnginaState,
                 icon: const Icon(Icons.arrow_drop_down),
                 items: widget.dropdownValue.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
@@ -52,8 +51,7 @@ class _ExerciseAnginaState extends State<ExerciseAngina> {
                 }).toList(),
                 onChanged: (String? value) {
                   setState(() {
-                    dropdownValue = value!;
-                    exerciseAnginaState=dropdownValue;
+                    exerciseAnginaState = value!;
                   });
                 },
                 borderRadius: BorderRadius.circular(16),

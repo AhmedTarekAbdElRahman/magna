@@ -1,24 +1,26 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:magna/Features/Search/presentation/views/nurse_search_view.dart';
-import 'Features/Home/presentation/views/doctor_home_view.dart';
-import 'Features/Home/presentation/views/nurse_home_view.dart';
-import 'Features/Profile/presentation/views/profile_view.dart';
-import 'Features/Search/presentation/views/doctor_search_view.dart';
-String uId='';
+import 'Features/D&N/Home/presentation/views/doctor_home_view.dart';
+import 'Features/D&N/Home/presentation/views/nurse_home_view.dart';
+import 'Features/D&N/Profile/presentation/views/profile_view.dart';
+import 'Features/D&N/Search/presentation/views/doctor_search_view.dart';
+import 'Features/D&N/Search/presentation/views/nurse_search_view.dart';
+String? uId;
+String? doctorName;
+String? role;
 const kPrimaryColor = Colors.blue;
 String userRole='Doctor';
 const List<String> roleList = <String>['Doctor', 'Nurse'];
 String patientGender='Male';
 const List<String> gender = <String>['Male', 'Female'];
-String chestPainType='typicalAngina';
+String chestPainType='Typical Angina';
 const List<String> chestPainTypes = <String>['Typical Angina', 'Atypical Angina','Non-Angina Pain', 'Asymptomatic'];
 String exerciseAnginaState='Yes';
 const List<String> exerciseAngina = <String>['Yes','No'];
 
 late String route;
-String defaultImage='https://img.freepik.com/free-photo/enchanting-blinde-woman-trendy-knitted-sweater-expressing-happiness-indoor-portrait-charming-european-woman-standing-orange_197531-12473.jpg?t=st=1681308353~exp=1681308953~hmac=168fb363dfdf14c7a9b9323f3806672b4932ce6d10cc2a400444968aeddd8651';
+String defaultImage='https://invisiblechildren.com/wp-content/uploads/2012/07/facebook-profile-picture-no-pic-avatar.jpg';
 List<BottomNavyBarItem> doctorBottomNavyBarItem=<BottomNavyBarItem>[
   BottomNavyBarItem(
     title: const Text('Home'),
@@ -67,3 +69,5 @@ final CollectionReference users =
 FirebaseFirestore.instance.collection('users');
 final CollectionReference patients =
 FirebaseFirestore.instance.collection('patients');
+final CollectionReference roles =
+FirebaseFirestore.instance.collection('roles');

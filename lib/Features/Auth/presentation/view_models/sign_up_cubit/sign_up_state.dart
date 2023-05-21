@@ -18,3 +18,10 @@ class PostUserDataFailure extends SignUpState{
   final String errMessage;
   PostUserDataFailure(this.errMessage);
 }
+
+class PostUserRoleLoading extends SignUpState{}
+class PostUserRoleSuccess extends SignUpState{}
+class PostUserRoleFailure extends SignUpState{
+  final String errMessage;
+  PostUserRoleFailure(this.errMessage);
+}

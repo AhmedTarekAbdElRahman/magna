@@ -15,6 +15,9 @@ class CustomAppBar extends StatelessWidget {
         title,
         style: Styles.style24B,
       ),
+      actions: [
+        Image.asset('assets/images/MAGNA.jpg')
+      ],
     );
   }
 }
